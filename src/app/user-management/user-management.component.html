@@ -1,0 +1,11 @@
+<h2>User Management</h2>
+
+<ul>
+    @for (user of users; track user) {
+        <li>
+            {{ user.username }} ({{ user.birthdate }})
+            <!-- <button (click)="deleteUser(user)">Delete</button> -->
+        </li>
+     }
+</ul>
+

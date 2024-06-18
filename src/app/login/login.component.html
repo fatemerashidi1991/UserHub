@@ -1,12 +1,9 @@
 <form (ngSubmit)="login()">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" [(ngModel)]="user.username">
+    <input type="text" id="username" name="username" [(ngModel)]="admin.username">
   
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" [(ngModel)]="user.password">
-    
-    <label for="birthdate">Birthdate:</label>
-    <input type="date" id="birthdate" name="birthdate" [(ngModel)]="user.birthdate">
+    <input type="password" id="password" name="password" [(ngModel)]="admin.password">
 
     <button type="submit">Login</button>
 </form>

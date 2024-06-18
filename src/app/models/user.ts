@@ -1,11 +1,11 @@
 export class User{
-    username!: string;
-    password!: string;
-    birthdate!: Date;
+    firstName!: string;
+    lastName!: string;
+    birthDate!: Date;
 
-    constructor(username: string, password: string, birthdate: Date) {
-        this.username = username;
-        this.password = password;
-        this.birthdate = birthdate;
+    constructor(firstName: string, lastName: string, birthDate: Date) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
       }
 }

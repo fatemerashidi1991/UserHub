@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { User } from "../models/user";
+import { Observable, of } from "rxjs";
+import { Admin } from "../models/admin";
 
 
 @Injectable({
@@ -13,13 +13,16 @@ export class AuthService {
 
     constructor(private http: HttpClient){}
 
-    login(user: User): Observable<any>{
-        return this.http.post<any>(`${this.apiUrl}/login`, { user });
-        this.isAuthenticated = true;
-    }
-
+    login(admin: Admin): Observable<any> {
+        if (admin.username === 'admin' && admin.password === 'admin') {
+          this.isAuthenticated = true;
+          return of({ success: true });
+        } else {
+          return of({ success: false });
+        }
+      }
     logout():void{
-        
+
     }
 
     isLoggedIn(): boolean {

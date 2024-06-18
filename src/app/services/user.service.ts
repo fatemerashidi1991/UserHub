@@ -23,7 +23,7 @@ export class UserService {
         this.users.push(user);
     }
 
-    updateUser(): void {
+    updateUser(user: User): void {
         if(this.selectedUser)
             {
                 //this.userService.updateUser();
@@ -31,11 +31,7 @@ export class UserService {
             }
     }
 
-    deleteUser(user:User):void {
-        const index = this.users.indexOf(user);
-        if(index !== -1)
-            {
-                this.users.splice(index, 1);
-            }
+    deleteUser(userId:string):void {
+      
     }
 }

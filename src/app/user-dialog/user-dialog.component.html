@@ -1,0 +1,30 @@
+<form [formGroup]="userForm">
+    <h1 mat-dialog-title>{{data.id ? 'Edit' : 'Add'}} User</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstName" matInput [(ngModel)]="data.firstName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastName" matInput [(ngModel)]="data.lastName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date of Birth</mat-label>
+        <input formControlName="birthDate"  matInput [matDatepicker]="picker" [(ngModel)]="data.birthDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+
+        <!-- <input formControlName="birthDate" matInput [(ngModel)]="data.birthDate" /> -->
+            <!-- <input formControlName="birthDate" matInput [matDatepicker]="picker" placeholder="Choose a date"  [(ngModel)]="data.birthDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> -->
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button mat-raised-button (click)="onNoClick()">Cancel</button>
+      <button mat-button mat-raised-button [mat-dialog-close]="data" [disabled]="!isValid()">Save</button>
+    </div>
+</form>
+

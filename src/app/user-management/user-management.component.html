@@ -1,36 +1,34 @@
-<h2>User Management</h2>
-<!-- 
-<ul>
-    @for (user of users; track user) {
-        <li>
-            {{ user.username }} ({{ user.birthdate }})
-            <button (click)="deleteUser(user)">Delete</button> -->
-        <!-- </li>
-     }
-</ul>  -->
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- username Column -->
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef> firstName </th>
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
       <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
     </ng-container>
   
     <!-- password Column -->
     <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef> lastName </th>
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
       <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
     </ng-container>
   
     <!-- birthdate Column -->
     <ng-container matColumnDef="birthDate">
-      <th mat-header-cell *matHeaderCellDef> birthDate </th>
+      <th mat-header-cell *matHeaderCellDef> Birth Date </th>
       <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
     </ng-container>
   
-   
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button  mat-raised-button (click)="openDialog(element)">Edit</button>
+          <button mat-button mat-raised-button (click)="deleteUser(element.id)">Delete</button>
+        </td>
+      </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
 
+  
+  </table>
+  <button mat-stroked-button color="primary" (click)="openDialog()">Add User</button>

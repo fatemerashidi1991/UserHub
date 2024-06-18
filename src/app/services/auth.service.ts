@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { Admin } from "../models/admin";
 import { ErrorMessages } from "../constants/ErrorMessages";
 
@@ -10,13 +10,14 @@ import { ErrorMessages } from "../constants/ErrorMessages";
 })
 export class AuthService {
     private apiUrl = "";
-    private isAuthenticated = false;
+    private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+    isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
     constructor(private http: HttpClient){}
 
     login(admin: Admin): Observable<any> {
         if (admin.username === 'admin' && admin.password === 'admin') {
-          this.isAuthenticated = true;
+          this.isLoggedInSubject.next(true);
           return of({ success: true });
         } else {
           return of({ success: false, message: ErrorMessages.loginFailed });
@@ -24,10 +25,10 @@ export class AuthService {
     }
     
     logout():void{
-
+        this.isLoggedInSubject.next(false);
     }
 
     isLoggedIn(): boolean {
-        return this.isAuthenticated;
+        return this.isLoggedInSubject.value;
       }
 }

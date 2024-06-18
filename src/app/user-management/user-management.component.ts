@@ -6,11 +6,12 @@ import {MatTableModule} from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import {MatButtonModule} from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [SharedModule, MatTableModule, UserDialogComponent, MatDialogModule, MatButtonModule ],
+  imports: [SharedModule, MatTableModule, UserDialogComponent, MatDialogModule, MatButtonModule, CommonModule ],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })

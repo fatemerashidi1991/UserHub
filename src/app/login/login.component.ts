@@ -3,27 +3,38 @@ import { AuthService } from '../services/auth.service';
 import { Admin } from '../models/admin';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ErrorMessages } from '../constants/ErrorMessages';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedModule,FormsModule],
+  imports: [SharedModule,FormsModule, ReactiveFormsModule,MatInputModule, MatButtonModule, 
+    ReactiveFormsModule, MatInputModule, MatCardModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  admin: Admin = new Admin('', '', new Date("1991.02.08"));
 
-  constructor(private authService: AuthService, private router: Router){}
+  admin: Admin = new Admin('', '', new Date("1991.02.08"));
+  loginForm: FormGroup = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder){}
 
   login() {
-    this.authService.login(this.admin).subscribe({
-        next: (queryParams) => {
-        this.handleResponse(queryParams);
-      }
-   });
+    if (this.loginForm.valid) {
+      this.authService.login(this.admin).subscribe({
+          next: (queryParams) => {
+          this.handleResponse(queryParams);
+        }
+    });
+    }
   }
  
   handleResponse(queryParams:any)

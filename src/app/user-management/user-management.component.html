@@ -15,7 +15,7 @@
     <!-- birthdate Column -->
     <ng-container matColumnDef="birthDate">
       <th mat-header-cell *matHeaderCellDef> Birth Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.birthDate}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.birthDate | date: 'MM/dd/yyyy'}} </td>
     </ng-container>
   
     <ng-container matColumnDef="actions">

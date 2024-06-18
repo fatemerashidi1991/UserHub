@@ -1,18 +1,16 @@
-<!-- @if(authService.isLoggedIn()){ 
-  <div>
-    <h1>Welcome to User Management Page</h1>
-    <router-outlet></router-outlet>
-  </div>
-}
-@if(!authService.isLoggedIn()){ 
-<div>
-  <h1>Please Log In</h1>
-  <router-outlet/>
-</div>
-} -->
 <app-header></app-header>
 
 <main>
+  <mat-toolbar-row>
+    <span class="spacer"></span>
+    @if(!isLoggedIn){ 
+        <button mat-button routerLink="/login">Login</button>
+    }
+    @if(isLoggedIn){ 
+        <button mat-button (click)="logout()">Logout</button>
+    }
+    
+</mat-toolbar-row>
   <router-outlet></router-outlet>
 </main>
 

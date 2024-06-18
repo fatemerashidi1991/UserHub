@@ -18,17 +18,24 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router){}
 
-  login(){
-    this.authService.login(this.admin).subscribe(
-      ()=>{
-        console.log(ErrorMessages.loginSuccess)
-        this.router.navigate(['/user-management']);
-      },
-      error=>{
-        console.error('Loging error', error);
-        alert(ErrorMessages.loginFailed);
+  login() {
+    this.authService.login(this.admin).subscribe({
+        next: (queryParams) => {
+        this.handleResponse(queryParams);
       }
-    );
+   });
   }
-
+ 
+  handleResponse(queryParams:any)
+  {
+    if(queryParams.success == true)
+      {
+        console.log(ErrorMessages.loginSuccess);
+        this.router.navigate(['/user-management']);
+      }
+      else{
+        console.error('Login error', queryParams.message);
+        alert(queryParams.message);
+      }
+  }
 }

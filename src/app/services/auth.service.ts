@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Admin } from "../models/admin";
+import { ErrorMessages } from "../constants/ErrorMessages";
 
 
 @Injectable({
@@ -18,9 +19,10 @@ export class AuthService {
           this.isAuthenticated = true;
           return of({ success: true });
         } else {
-          return of({ success: false });
+          return of({ success: false, message: ErrorMessages.loginFailed });
         }
-      }
+    }
+    
     logout():void{
 
     }

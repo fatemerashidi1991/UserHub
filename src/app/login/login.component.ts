@@ -8,6 +8,8 @@ import { ErrorMessages } from '../constants/ErrorMessages';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +27,7 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder){}
+  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder, private dialog: MatDialog){}
 
   login() {
     if (this.loginForm.valid) {
@@ -46,7 +48,15 @@ export class LoginComponent {
       }
       else{
         console.error('Login error', queryParams.message);
-        alert(queryParams.message);
+        this.showError(queryParams.message);
       }
+  }
+
+  showError(message: string) {
+    this.dialog.open(ErrorDialogComponent, {
+      width: '500px',
+      height: '200px',
+      data: { message }
+    });
   }
 }

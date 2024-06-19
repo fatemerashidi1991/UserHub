@@ -1,0 +1,35 @@
+@import '../constants/colors.css';
+
+.mat-cell, .mat-header-cell {
+    padding: 16px;
+  }
+  
+  .mat-table {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+  }
+  
+  .user-table-row:hover {
+    background-color: var(--table-background-color);
+  }
+  
+  .mat-cell button {
+    margin-right: 8px;
+  }
+  
+  .mat-header-cell {
+    text-align: center;
+  }
+  
+  .mat-header-cell {
+    font-weight: bold;
+  }
+  
+  .user-table .mat-column-actions {
+    text-align: center;
+  }
+  
+  button[mat-stroked-button] {
+    margin-top: 16px;
+  }
+  

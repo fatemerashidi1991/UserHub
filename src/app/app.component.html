@@ -4,10 +4,16 @@
   <mat-toolbar-row>
     <span class="spacer"></span>
     @if(!isLoggedIn){ 
-        <button mat-button routerLink="/login">Login</button>
+        <button mat-button routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Login
+        </button>
     }
     @if(isLoggedIn){ 
-        <button mat-button (click)="logout()">Logout</button>
+        <button mat-button (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
     }
     
 </mat-toolbar-row>

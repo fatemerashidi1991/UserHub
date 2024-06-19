@@ -20,3 +20,6 @@
     justify-content: flex-end;
   }
   
+  mat-card-title {
+    padding: 16px;
+  }

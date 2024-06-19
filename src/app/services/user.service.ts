@@ -1,37 +1,38 @@
 import { Injectable } from "@angular/core";
 import { User } from "../models/user";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { AppConfig } from "../constants/app-config";
 
 @Injectable({
   providedIn: 'root'  
 })
 export class UserService {
-    private users: User[] = [];
     selectedUser:  User | null = null; ;
-
-    constructor() {
-        this.users = [
-            new User('John Doe', 'john123', new Date('1990-01-01')),
-            new User('Jane Smith', 'jane456', new Date('1985-05-15'))
-          ];
+    private apiUrl = AppConfig.apiUrl;
+    
+    constructor(private http: HttpClient) {
     }
 
-    getUsers(): User[] {
-        return this.users;
+    getUsers(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
     }
 
-    addUser(user: User): void {
-        this.users.push(user);
+    getUser(id: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${id}`);
     }
 
-    updateUser(user: User): void {
-        if(this.selectedUser)
-            {
-                //this.userService.updateUser();
-                this.selectedUser = null;
-            }
+    addUser(user: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.post<any>(this.apiUrl, user, { headers });
     }
 
-    deleteUser(userId:string):void {
-      
+    updateUser(user: any): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.put<any>(`${this.apiUrl}/${user.id}`, user, { headers });
+    }
+
+    deleteUser(id: number): Observable<any> {
+      return this.http.delete<any>(`${this.apiUrl}/${id}`);
     }
 }

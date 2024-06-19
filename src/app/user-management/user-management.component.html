@@ -1,3 +1,9 @@
+<mat-toolbar class="toolbar">
+    <span class="spacer"></span>
+    <button mat-stroked-button color="primary" (click)="openDialog()">Add User</button>
+    <!-- <app-user-dialog (usersChanged)="onUserChanged()"></app-user-dialog> -->
+</mat-toolbar>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 user-table">
 
     <!-- Username Column -->
@@ -31,6 +37,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="user-table-row"></tr>
   
   </table>
-  
-  <button mat-stroked-button color="primary" (click)="openDialog()">Add User</button>
+ 
   

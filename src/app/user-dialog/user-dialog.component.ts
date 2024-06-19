@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { User } from '../models/user';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -20,6 +21,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 })
 
 export class UserDialogComponent {
+  @Output() usersChanged = new EventEmitter<void>();
 
   userForm: FormGroup = this.fb.group({
     firstName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -30,7 +32,8 @@ export class UserDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<UserDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private userService: UserService,
   ) {}
   
   isValid(){
@@ -39,5 +42,29 @@ export class UserDialogComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  save(): void {
+    if (this.data && this.data.id) {
+      this.updateUser(this.data);
+    } else {
+      this.addUser(this.data);
+    }
+  }
+
+  addUser(user: any){
+    this.userService.addUser(user).subscribe({
+      next: (queryParams) => {
+        this.usersChanged.emit(); 
+    }
+  });
+  }
+
+  updateUser(user: any){
+    this.userService.updateUser(user).subscribe({
+      next: (queryParams) => {
+        this.usersChanged.emit(); 
+    }
+  });
   }
 }

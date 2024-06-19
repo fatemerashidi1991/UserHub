@@ -7,7 +7,12 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 @Component({
   selector: 'app-error-dialog',
   standalone: true,
-  imports: [MatButtonModule, MatIconButton, MatIconModule, UserDialogComponent, MatDialogModule],
+  imports: [
+    MatButtonModule,
+    MatIconButton,
+    MatIconModule,
+    UserDialogComponent,
+    MatDialogModule],
   templateUrl: './error-dialog.component.html',
   styleUrl: './error-dialog.component.css'
 })

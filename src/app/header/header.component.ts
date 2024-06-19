@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { SharedModule } from '../shared.module';
-import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
-import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [SharedModule,MatToolbar,MatButton,MatToolbarRow,RouterModule,MatIconButton,MatIconModule],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

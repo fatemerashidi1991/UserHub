@@ -15,7 +15,17 @@ import { SnackbarService } from './services/snackbar.service';
   selector: 'app-root',
   standalone: true,
   providers: [SnackbarService],
-  imports: [SharedModule,RouterOutlet,FormsModule,HeaderComponent,MatToolbar,MatButton,MatToolbarRow,RouterModule,MatIconButton,MatIconModule,
+  imports: [
+    SharedModule,
+    RouterOutlet,
+    FormsModule,
+    HeaderComponent,
+    MatToolbar,
+    MatButton,
+    MatToolbarRow,
+    RouterModule,
+    MatIconButton,
+    MatIconModule,
     MatSnackBarModule,
     MatButtonModule
   ],

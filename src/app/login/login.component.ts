@@ -14,8 +14,15 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [SharedModule,FormsModule, ReactiveFormsModule,MatInputModule, MatButtonModule, 
-    ReactiveFormsModule, MatInputModule, MatCardModule],
+  imports: [
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule, 
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCardModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -42,14 +49,14 @@ export class LoginComponent {
   handleResponse(queryParams:any)
   {
     if(queryParams.success == true)
-      {
-        console.log(ErrorMessages.loginSuccess);
-        this.router.navigate(['/user-management']);
-      }
-      else{
-        console.error('Login error', queryParams.message);
-        this.showError(queryParams.message);
-      }
+    {
+      console.log(ErrorMessages.loginSuccess);
+      this.router.navigate(['/user-management']);
+    }
+    else{
+      console.error('Login error', queryParams.message);
+      this.showError(queryParams.message);
+    }
   }
 
   showError(message: string) {

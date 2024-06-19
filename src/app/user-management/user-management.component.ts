@@ -5,18 +5,23 @@ import { SharedModule } from '../shared.module';
 import {MatTableModule} from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
-import {MatButtonModule} from '@angular/material/button';
+import {MatButton, MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { SnackbarService } from '../services/snackbar.service';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [SharedModule, MatTableModule, UserDialogComponent, MatDialogModule, MatButtonModule, CommonModule
-   ],
+  imports: [
+    SharedModule,
+    MatTableModule,
+    UserDialogComponent,
+    MatDialogModule,
+    MatButtonModule,
+    CommonModule,
+    MatToolbar,
+    MatButton,
+    MatToolbarRow],
   templateUrl: './user-management.component.html',
   styleUrl: './user-management.component.css'
 })
@@ -25,9 +30,9 @@ export class UserManagementComponent {
   public dataSource: User[] = [];
   newUser:  User | null = null; ;
   displayedColumns: string[] = ['firstName', 'lastName', 'birthDate', 'actions'];
-
+  users: User[] = [];
   constructor(private userService: UserService, private dialog: MatDialog){
-    this.dataSource = userService.getUsers();
+    this.fetchUsers();
   }
 
   openDialog(user?: User): void {
@@ -45,13 +50,38 @@ export class UserManagementComponent {
         }
       }
     });
+
+    dialogRef.componentInstance.usersChanged.subscribe(() => {
+      this.fetchUsers();
+      dialogRef.close();
+    });
+  }
+  
+  fetchUsers(): void {
+    this.userService.getUsers().subscribe({
+        next: (queryParams) => {
+        this.MapDataSource(queryParams);
+      },
+      error: (error) => {
+        console.error('Error fetching users', error);
+      }
+    });
   }
 
-  deleteUser(userId: string): void {
-    this.userService.deleteUser(userId);
+  MapDataSource(queryParams:any)
+  {
+    this.dataSource = queryParams;
   }
-
-  addUser():void{
+  
+  deleteUser(userId: number): void {
+    this.userService.deleteUser(userId).subscribe({
+      next: () => {
+        this.fetchUsers();
+      },
+      error: (error) => {
+        console.error('Error deleting user', error);
+      }
+    });
   }
 }
 

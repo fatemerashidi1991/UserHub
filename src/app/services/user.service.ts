@@ -9,7 +9,7 @@ import { AppConfig } from "../constants/app-config";
 })
 export class UserService {
     selectedUser:  User | null = null; ;
-    private apiUrl = AppConfig.apiUrl;
+    private apiUrl = AppConfig.userApiUrl;
     
     constructor(private http: HttpClient) {
     }

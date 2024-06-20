@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import { SharedModule } from './shared.module';
 import { FormsModule } from '@angular/forms';
@@ -36,22 +36,16 @@ export class AppComponent implements OnInit {
   title = 'user-hub';
   isLoggedIn: boolean = false;
 
-  constructor(public authService: AuthService, private router: Router, private snackbarService: SnackbarService){
-    this.isLoggedIn = this.authService.isLoggedIn(); 
+  constructor(public authService: AuthService, private snackbarService: SnackbarService){
   }
 
   ngOnInit() {
     this.authService.isLoggedIn$.subscribe(status => {
       this.isLoggedIn = status;
-      if(this.isLoggedIn == true)
-        {
-          this.snackbarService.showSuccess('Logged in successfully!');
-        }
     });
   }
 
   logout(): void {
-    this.router.navigate(['/login']);
     this.authService.logout();
   }
 }

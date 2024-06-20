@@ -12,7 +12,7 @@ export class HeaderComponent {
   isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService) {
-    this.isLoggedIn = this.authService.isLoggedIn(); 
+    this.isLoggedIn = this.authService.getToken() != null; 
   }
 
   logout(): void {

@@ -38,17 +38,21 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.authService.login(this.admin).subscribe({
+      this.authService.login(this.admin.username, this.admin.password).subscribe({
           next: (queryParams) => {
-          this.handleResponse(queryParams);
+          this.handleLoginResponse(queryParams);
+        },
+        error: (err) => {
+          console.error('Login error!', err.message);
+          this.showError('An error occurred while attempting to login!, Please check username and password.');
         }
     });
     }
   }
  
-  handleResponse(queryParams:any)
+  handleLoginResponse(queryParams:any)
   {
-    if(queryParams.success == true)
+    if(this.authService.getToken() != null)
     {
       console.log(ErrorMessages.loginSuccess);
       this.router.navigate(['/user-management']);

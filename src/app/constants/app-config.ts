@@ -1,3 +1,4 @@
 export const AppConfig = {
-    apiUrl: 'https://localhost:7279/api/User'
+    userApiUrl: 'https://localhost:7279/api/User',
+    authApiUrl: 'https://localhost:7279/api/Login'
   };

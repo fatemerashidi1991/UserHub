@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { UserService } from '../services/user.service';
+import { ErrorMessages } from '../constants/ErrorMessages';
 
 @Component({
   selector: 'app-user-dialog',
@@ -22,7 +23,8 @@ import { UserService } from '../services/user.service';
 
 export class UserDialogComponent {
   @Output() usersChanged = new EventEmitter<void>();
-
+  ErrorMessages = ErrorMessages;
+  
   userForm: FormGroup = this.fb.group({
     firstName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
     lastName: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
@@ -36,8 +38,14 @@ export class UserDialogComponent {
     private userService: UserService,
   ) {}
   
-  isValid(){
-    return this.userForm.valid;
+  isValid(element: any, typeOfValidation: string){
+    if(element == '')
+      {
+        return this.userForm.valid;
+      }
+    else{
+        return this.userForm.controls[element].hasError(typeOfValidation);
+    }
   }
 
   onNoClick(): void {
